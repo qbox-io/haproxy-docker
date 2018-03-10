@@ -1,0 +1,30 @@
+From cf6234ae7c40630c9a2e1135c1a58a3489015604 Mon Sep 17 00:00:00 2001
+From: Jon Penn <Jon@Qbox.io>
+Date: Sat, 10 Mar 2018 02:54:10 -0600
+Subject: [PATCH] make config lines longer for long ip lists
+
+---
+ include/common/defaults.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/common/defaults.h b/include/common/defaults.h
+index 9f2c2236..8b251bbb 100644
+--- a/include/common/defaults.h
++++ b/include/common/defaults.h
+@@ -68,11 +68,11 @@
+ 
+ // maximum line size when parsing config
+ #ifndef LINESIZE
+-#define LINESIZE	2048
++#define LINESIZE	20480
+ #endif
+ 
+ // max # args on a configuration line
+-#define MAX_LINE_ARGS   64
++#define MAX_LINE_ARGS   640
+ 
+ // crt-list parsing factor for LINESIZE and MAX_LINE_ARGS
+ #define CRTLIST_FACTOR  32
+-- 
+2.16.1
+

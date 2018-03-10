@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     HAPROXY_VERSION=v1.7.3
 
 ADD syslog-stdout/ /usr/src/syslog-stdout
+ADD long-lines.patch /tmp/
 
 RUN apt-get update -yq && apt-get upgrade -yq && \
     apt-get install -yq --no-install-recommends inotify-tools ca-certificates build-essential \
@@ -19,6 +20,7 @@ RUN apt-get update -yq && apt-get upgrade -yq && \
     HAPROXY_PATH=/usr/src/haproxy && LIBRESSL_PATH=/usr/src/libressl-${LIBRESSL_VERSION} && LIBSLZ_PATH=/usr/src/libslz && \
       git clone --branch ${HAPROXY_VERSION} http://git.haproxy.org/git/haproxy-1.7.git/ ${HAPROXY_PATH} && \
       cd $HAPROXY_PATH && \
+      git apply /tmp/long-lines.patch && \
       make TARGET=custom CPU=native USE_PCRE=1 USE_PCRE_JIT=1 USE_LIBCRYPT=1 USE_LINUX_SPLICE=1 USE_LINUX_TPROXY=1 \
          USE_GETADDRINFO=1 USE_STATIC_PCRE=1 USE_TFO=1 \
          USE_SLZ=1 SLZ_INC=${LIBSLZ_PATH}/src SLZ_LIB=${LIBSLZ_PATH} \
